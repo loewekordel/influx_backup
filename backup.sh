@@ -19,56 +19,20 @@ docker exec influxdb influxd backup -portable /var/lib/influxdb/backup
 
 # sweep the backup into a tar (sudo is needed because backup files are
 # created with owner root, group root, mode 600)
-echo "Create backup tar"
+echo "Create backup archive"
 sudo tar \
 	-cvf "$BACKUP_TAR" \
 	-C "$INFLUXBACKUPDB" \
 	.
 
+echo "Remove influx db backup zips"
+sudo rm -rfv "$INFLUXBACKUPDB"/*
+
+echo "Backup created: $INFLUXBACKUPDB"
+
 # report size of archive
 du -h "$BACKUP_TAR"
 
+
 echo "INFLUX DB backup finished"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
